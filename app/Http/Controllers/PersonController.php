@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Person;
 
 class PersonController extends Controller
 {
@@ -13,18 +14,18 @@ class PersonController extends Controller
      */
     public function index()
     {
-        return 'get persona';
+        $persons = Person::all();
+
+        $res = [
+            "status" => "ok",
+            "message" => "Lista de Personas",
+            "code" => 1000,
+            "data" => $persons
+        ];
+        return $res;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+    
 
     /**
      * Store a newly created resource in storage.
@@ -45,19 +46,29 @@ class PersonController extends Controller
      */
     public function show($id)
     {
-        //
+        $person =Person::find($id);
+        
+        if(isset($person)){
+            
+            $res = [
+                "status" => "ok",
+                "message" => "Persona por Id ".$id,
+                "code" => 1001,
+                "data" => $person
+            ];
+        } else{
+            $res = [
+                "status" => "fail",
+                "message" => "No se encontro persona por Id ".$id,
+                "code" => 1011,
+                "data" => null
+            ];
+        }
+        return $res;
+
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+    
 
     /**
      * Update the specified resource in storage.

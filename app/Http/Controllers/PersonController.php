@@ -35,18 +35,10 @@ class PersonController extends Controller
      */
     public function store(Request $request)
     {
-        $jdonPerson = $request->json()->all();
+        $jsonPerson = $request->json()->all();
 
-        $person = new Person();
+        $person = new Person($jsonPerson);
         
-        $person->firstName = $jdonPerson["firstName"];
-        $person->lastName = $jdonPerson["lastName"];
-        $person->documentNumber = $jdonPerson["documentNumber"];
-        $person->country = $jdonPerson["country"];
-        $person->city = $jdonPerson["city"];
-        $person->street = $jdonPerson["street"];
-        $person->number = $jdonPerson["number"];
-        $person->single = $jdonPerson["single"];
 
         $person->save();
 

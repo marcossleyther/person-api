@@ -104,6 +104,25 @@ class PersonController extends Controller
      */
     public function destroy($id)
     {
-        //
+    $person = Person::find($id);
+
+    if(isset($person)){
+        $person->delete();
+
+        $res = [
+            "status" => "ok",
+            "code" => 1004,
+            "message" => "Persona eliminada"
+        ];
+    } else{
+        $res = [
+            "status" => "fail",
+            "code" => 1014,
+            "message" => "No se encontro Persona a eliminar"
+        ];
+    }
+    return $res;
+   
+
     }
 }

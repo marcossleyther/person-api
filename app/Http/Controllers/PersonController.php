@@ -93,7 +93,26 @@ class PersonController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+       
+    $person = Person::find($id);
+
+    if(isset($person)){
+        $person->update($request->json()->all());
+
+        $res = [
+            "status" => "ok",
+            "code" => 1005,
+            "message" => "Persona actualizada"
+        ];
+    } else{
+        $res = [
+            "status" => "fail",
+            "code" => 1015,
+            "message" => "No se encontro Persona a actualizar"
+        ];
+    }
+    return $res;
+   
     }
 
     /**
